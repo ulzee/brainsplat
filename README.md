@@ -64,7 +64,7 @@ The script will create three folders in the output directory pertaining to three
 The `--all_slices` tells the script to process every single slice of the volume; not passing this option will lead the script to observe only every 10th slice.
 
 
-## Running baselines
+## IDP prediction task
 
 ### 3-crossections (256^2 x 3) Resnet-18 (baseline)
 
@@ -84,12 +84,22 @@ python train_resnet.py cuda:0
 The 3d-resnet can be run similarly usnig the script `train_resnet3d.py`.
 More coming soon...
 
-## Predictions from embeddings
+### Predictions from embeddings
+
+The `train_emb.py` script can be used to fit a lightweight MLP (3 layers default) to try using it to predict IDPs.
+The folder specific to a projection in the `/output/directory` (named `proj_**` by default) should be pass to the script.
 
 ```bash
 python train_emb.py --device cuda:0 --task idps \
     --emb-type oct16/proj_normal_k10 --epochs 100
 ```
+
+After the MLP finishes training, predictions can be saved using the `--predict` flag
+```bash
+python train_emb.py --device cuda:0 --task idps \
+    --emb-type oct16/proj_normal_k10 --epochs 100 --predict
+```
+
 
 
 ## Scoring
@@ -103,4 +113,14 @@ The `score.py` file can be run to generate figures that compare the prediction a
 /u/scratch/u/ulzee/brainsplat/data/images # images for baselines
 /u/scratch/u/ulzee/brainsplat/data/embs/**/proj_normal_k10 # embeddings
 ...
+```
+
+## Contact
+
+Please reach out to ulzee [at] cs [dot] ucla [dot] edu for any questions.
+
+## Citation
+
+```
+TBD
 ```
